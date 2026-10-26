@@ -115,7 +115,6 @@ public abstract class Sensor implements Runnable {
         }
     }
 
-
      // Construyo el informe final en una sola línea reuniendo mis estadísticas calculadas.
 
     public String informe() {
