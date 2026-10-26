@@ -32,7 +32,7 @@ public class ProgramadorRiego extends Thread {
         }
     }
 
-    public String informe(){
-        return "Ciclos: "+ciclosRealizados+" | Litros: "+litros;
+    public String informe() {
+        return "Ciclos: " + ciclosRealizados + " | Litros: " + litros;
     }
 }
