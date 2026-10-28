@@ -17,9 +17,13 @@ public class Fase2_Concurrente {
         pr.start();
 
         temperatura1.join();
+        System.out.println(temperatura.informe());
         humedad1.join();
+        System.out.println(humedad.informe());
         luz1.join();
+        System.out.println(luz.informe());
         pr.join();
+        System.out.println(pr.informe());
 
         long tiempoFinal = System.currentTimeMillis();
 
