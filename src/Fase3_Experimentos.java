@@ -8,6 +8,17 @@ public class Fase3_Experimentos {
         temperatura1.join();
         System.out.println(temperatura.informe());
 
+        ProgramadorRiego pr = new ProgramadorRiego("riego");
+        pr.run();
+        System.out.println(pr.getState());
+
+        pr.start();
+        pr.join();
+        try {
+            pr.start();
+        } catch (Exception e) {
+            throw new IllegalThreadStateException();
+        }
 
     }
 }
