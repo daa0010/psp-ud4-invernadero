@@ -17,7 +17,7 @@ public class Fase3_Experimentos {
         try {
             pr.start();
         } catch (Exception e) {
-            throw new IllegalThreadStateException();
+            System.out.println("Error: " + e);
         }
 
     }
