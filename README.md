@@ -93,6 +93,8 @@ delimitado por la tarea más lenta:
 El tiempo medido en la prueba fue de **3.518 ms**, lo que representa un ahorro de tiempo superior al 68% respecto a los
 11.068 ms de la ejecución secuencial y permite registrar datos ambientales y alertas en tiempo real.
 
+---
+
 ### Experimentos A, B y C
 
 #### Experimento A: Lanzar sensor e imprimir informe sin esperar vs con espera
@@ -107,12 +109,12 @@ El tiempo medido en la prueba fue de **3.518 ms**, lo que representa un ahorro d
   bloquea hasta que el método `run()` del sensor completa sus 5 lecturas, permitiendo que el segundo informe muestre los
   datos consolidados.
 
----
 
 #### Experimento B: Riego de 3 ciclos llamando a run () frente a start ()
 
 - **¿Qué nombre de hilo sale en el log?**  
-  Aparece el hilo `main` en lugar de `riego` (`[main] Ciclo: 1 Nombre: riego...`).
+  Aparece el hilo `main` en lugar de `riego` (`Ciclo: 1 Nombre: main Válvula: ABIERTA`). Al llamar directamente a
+  `run()`, el método se ejecuta dentro del hilo actual (`main`), el cual asume la ejecución de las instrucciones.
 - **¿Cuánto tarda?**  
   Tarda aproximadamente **2.104 ms** (3 ciclos x 700 ms), bloqueando de forma síncrona la ejecución del hilo principal.
 - **¿En qué estado está el objeto y por qué?**  
@@ -121,7 +123,6 @@ El tiempo medido en la prueba fue de **3.518 ms**, lo que representa un ahorro d
   Como nunca se invocó `start()`, para la máquina virtual el objeto `Thread` permanece en su estado inicial de creación
   (`NEW`).
 
----
 
 #### Experimento C: Reintento de arranque con doble start ()
 
@@ -143,6 +144,13 @@ El tiempo medido en la prueba fue de **3.518 ms**, lo que representa un ahorro d
 | **`RUNNABLE`**      | Cuando el hilo está ejecutando instrucciones en la CPU o en cola esperando su turno. | `hilo.start()` (o al despertar tras finalizar una pausa)                 |
 | **`TIMED_WAITING`** | Durante las pausas temporales entre lecturas o ciclos de riego.                      | `Thread.sleep(periodo)` en los sensores o `Thread.sleep(ms)` en el riego |
 | **`TERMINATED`**    | Cuando se han completado las 5 lecturas o los 5 ciclos de riego y el hilo finaliza.  | El retorno y cierre del método `run()`                                   |
+
+> **Estados no observados (`WAITING` y `BLOCKED`):**
+> - **`WAITING`:** No aparece porque los hilos utilizan pausas temporizadas con tiempo límite (`Thread.sleep(ms)`), lo
+    que los sitúa en `TIMED_WAITING` en lugar de una espera indefinida sin temporizador (`wait()` o `join()` sin
+    parámetros).
+> - **`BLOCKED`:** No aparece porque en este diseño los hilos no compiten por recursos compartidos protegidos por
+    cerrojos o bloques sincronizados (`synchronized`).
 
 ### ¿Por qué termina el programa si el vigilante sigue en su bucle?
 
