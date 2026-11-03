@@ -2,15 +2,22 @@ public class ProgramadorRiego extends Thread {
     private int ciclosRealizados;
     private double litros;
     private boolean estado;
+    private final int totalCiclos;
 
     public ProgramadorRiego(String nombre) {
-        super("riego");
+        super(nombre);
+        this.totalCiclos = 5;
+    }
+
+    public ProgramadorRiego(String nombre, int totalCiclos) {
+        super(nombre);
+        this.totalCiclos = totalCiclos;
     }
 
     @Override
     public void run() {
         String valvula;
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= totalCiclos; i++) {
             estado = !estado;
             if (estado) {
                 litros += 2.5;

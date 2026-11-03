@@ -8,18 +8,17 @@ public class Fase1_Secuencial {
         long tiempoInicial = System.currentTimeMillis();
 
         temperatura.run();
-        System.out.println(temperatura.informe());
-
         humedad.run();
-        System.out.println(humedad.informe());
-
         luz.run();
-        System.out.println(luz.informe());
-
         pr.run();
-        System.out.println(pr.informe());
 
         long tiempoFinal = System.currentTimeMillis();
+
+        System.out.println(temperatura.informe());
+        System.out.println(humedad.informe());
+        System.out.println(luz.informe());
+        System.out.println(pr.informe());
+
 
         System.out.println("Tiempo: " + (tiempoFinal - tiempoInicial) + "ms");
     }
