@@ -21,12 +21,12 @@ public class Fase2_Concurrente {
         luz1.join();
         pr.join();
 
+        long tiempoFinal = System.currentTimeMillis();
+
         System.out.println(temperatura.informe());
         System.out.println(humedad.informe());
         System.out.println(luz.informe());
         System.out.println(pr.informe());
-
-        long tiempoFinal = System.currentTimeMillis();
 
         System.out.println("Tiempo: " + (tiempoFinal - tiempoInicial) + "ms");
 

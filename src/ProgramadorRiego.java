@@ -26,7 +26,7 @@ public class ProgramadorRiego extends Thread {
                 valvula = "cerrada";
             }
             ciclosRealizados++;
-            System.out.println("Ciclo: " + i + " " + "Nombre: " + getName() + " " + "Válvula: " + valvula);
+            System.out.println("Ciclo: " + i + " " + "Nombre: " + Thread.currentThread().getName() + " " + "Válvula: " + valvula);
             esperar(700);
         }
     }
